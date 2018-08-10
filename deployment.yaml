@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: test-cp-kafka-rest
+  labels:
+    app: cp-kafka-rest
+    chart: cp-kafka-rest-0.1.0
+    release: test
+    heritage: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cp-kafka-rest
+      release: test
+  template:
+    metadata:
+      labels:
+        app: cp-kafka-rest
+        release: test
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5556"
+    spec:
+      containers:
+        - name: cp-kafka-rest-server
+          image: "confluentinc/cp-kafka-rest:5.0.0"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - name: rest-proxy
+              containerPort: 8082
+              protocol: TCP
+            - containerPort: 5555
+              name: jmx
+          resources:
+            {}
+            
+          env:
+          - name: KAFKA_REST_HOST_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: KAFKA_REST_ZOOKEEPER_CONNECT
+            value: test-cp-zookeeper-headless:2181
+          - name: KAFKA_REST_SCHEMA_REGISTRY_URL
+            value: http://test-cp-schema-registry:8081
+          - name: KAFKA_REST_JMX_PORT
+            value: "5555"
