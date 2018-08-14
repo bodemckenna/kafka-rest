@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-cp-kafka-rest
+spec:
+  rules:
+  - host: cp-kafka.rontgen002.seli.gic.ericsson.se
+    http:
+      paths:
+      - backend:
+          serviceName: test-cp-kafka-rest
+          servicePort: 8082
+        path: /
