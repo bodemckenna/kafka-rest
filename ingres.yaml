@@ -4,7 +4,7 @@ metadata:
   name: test-cp-kafka-rest
 spec:
   rules:
-  - host: cp-kafka.rontgen002.seli.gic.ericsson.se
+  - host: cp-kafka.icon.seli.gic.ericsson.se
     http:
       paths:
       - backend:

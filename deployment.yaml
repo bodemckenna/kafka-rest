@@ -64,6 +64,6 @@ spec:
           - name: KAFKA_REST_ZOOKEEPER_CONNECT
             value: eric-data-coordinator-zk:2181/eric-data-message-bus-kf
           - name: KAFKA_REST_SCHEMA_REGISTRY_URL
-            value: http://sr-kissed-puffin:8081
+            value: http://schemaregistry:8081
           - name: KAFKA_REST_JMX_PORT
             value: "5555"
